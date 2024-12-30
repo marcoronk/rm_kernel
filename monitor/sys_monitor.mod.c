@@ -37,16 +37,6 @@ static const char ____versions[]
 __used __section("__versions") =
 	"\x14\x00\x00\x00\x1f\xd8\xa1\x3c"
 	"single_open\0"
-	"\x1c\x00\x00\x00\xe7\xb2\xdd\x3a"
-	"remove_proc_entry\0\0\0"
-	"\x14\x00\x00\x00\xb2\x4a\x65\xdc"
-	"kern_path\0\0\0"
-	"\x14\x00\x00\x00\xe4\x7c\x27\xaa"
-	"vfs_statfs\0\0"
-	"\x14\x00\x00\x00\xdb\x48\x96\x44"
-	"path_put\0\0\0\0"
-	"\x1c\x00\x00\x00\xcb\xf6\xfd\xf0"
-	"__stack_chk_fail\0\0\0\0"
 	"\x14\x00\x00\x00\x7c\x24\xc7\x40"
 	"si_meminfo\0\0"
 	"\x10\x00\x00\x00\xa6\x50\xba\x15"
@@ -55,6 +45,10 @@ __used __section("__versions") =
 	"jiffies_to_msecs\0\0\0\0"
 	"\x14\x00\x00\x00\x16\x7e\x9b\x2f"
 	"seq_printf\0\0"
+	"\x1c\x00\x00\x00\xcb\xf6\xfd\xf0"
+	"__stack_chk_fail\0\0\0\0"
+	"\x1c\x00\x00\x00\xe7\xb2\xdd\x3a"
+	"remove_proc_entry\0\0\0"
 	"\x14\x00\x00\x00\x97\xc5\xcc\x79"
 	"seq_read\0\0\0\0"
 	"\x14\x00\x00\x00\xea\x31\xa2\x35"
@@ -76,4 +70,4 @@ __used __section("__versions") =
 MODULE_INFO(depends, "");
 
 
-MODULE_INFO(srcversion, "779EC31AD87CDF250A41689");
+MODULE_INFO(srcversion, "C29D44963533F246CE4669E");

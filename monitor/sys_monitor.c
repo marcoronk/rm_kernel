@@ -11,7 +11,7 @@
 
 
 #define PROC_NAME "sys_monitor"
-
+/*
 int get_filesystem_info(const char *path, struct kstatfs *stat) {
     struct path p;
     int ret;
@@ -34,13 +34,13 @@ int get_filesystem_info(const char *path, struct kstatfs *stat) {
 
     return 0;
 }
-
+*/
 
 static int sys_monitor_show(struct seq_file *m, void *v) {
     struct sysinfo info;
     unsigned long total_mem, free_mem, used_mem,shared_ram;
     unsigned long total_swap, free_swap, used_swap;
-    struct kstatfs *fsstat;
+    //struct kstatfs *fsstat;
     
      printk(KERN_INFO "reading info....");
     // Ottieni informazioni di sistema
