@@ -1,5 +1,5 @@
 #!/bin/sh
-module=sys_module
+module=sys_monitor
 
 rmmod $module || exit 1
 
