@@ -50,9 +50,12 @@ static void send_netlink_message(char *msg) {
     struct sk_buff *skb;
     struct nlmsghdr *nlh;
     int size=0;
+               printk(KERN_INFO "SysMonitor sent netlink %s",msg);
+
     if (pid == 0)
     return;
     // Alloca un buffer per il messaggio
+
     size = strlen(msg);
     skb = nlmsg_new(size, GFP_KERNEL);
     if (!skb) {
@@ -82,6 +85,7 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     int temp;
     int cpu_temp = 0;
     char *mess;
+     printk(KERN_INFO "SysMonitor start");
     mess = kmalloc(1024, GFP_KERNEL);
     memset(mess,0,1024);
 
@@ -96,6 +100,8 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     used_swap = total_swap - free_swap;
 
     shared_ram = info.sharedram * 4;
+    printk(KERN_INFO "SysMonitor reading params Cpu");
+
     unsigned long load1 = (avenrun[0] * 100) >> FSHIFT;
     unsigned long load5 = (avenrun[1] * 100) >> FSHIFT;
     unsigned long load15 = (avenrun[2] * 100) >> FSHIFT;
@@ -106,7 +112,8 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     seq_printf(m, "CPU_LOAD_AVERAGE_1:  %lu.%02lu\n", load1 / 100, load1 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_5:  %lu.%02lu\n", load5 / 100, load5 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_15:  %lu.%02lu\n", load15 / 100, load15 % 100);
-   
+       printk(KERN_INFO "SysMonitor reading params Cpu sensors");
+
      tz = thermal_zone_get_zone_by_name("x86_pkg_temp");
      if (thermal_zone_get_temp(tz, &temp) == 0) {
          cpu_temp = temp / 1000;          
@@ -122,6 +129,8 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     if (!IS_ERR(tz)) {
         printk(KERN_WARNING "ACPI thermal zone not found.\n");                
     }
+           printk(KERN_INFO "SysMonitor reading params Ram");
+
     seq_printf(m, "TOTAL_RAM: %lu\n", total_mem);
     seq_printf(m, "FREE_RAM: %lu\n", free_mem);
     if (free_mem < LIMIT_MEMORY)  {
@@ -134,6 +143,8 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     seq_printf(m, "TOTAL_SWAP: %lu\n", total_swap);
     seq_printf(m, "FREE_SWAP: %lu\n", free_swap);
     seq_printf(m, "USED_SWAP: %lu\n", used_swap);
+               printk(KERN_INFO "SysMonitor reading params network");
+
     for_each_netdev(&init_net, dev)
     {
         seq_printf(m, "NETWORK_INTERFACE: %s, RX: %lu bytes, TX: %lu bytes\n",
