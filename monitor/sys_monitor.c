@@ -108,7 +108,7 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     seq_printf(m, "CPU_LOAD_AVERAGE_1:  %lu.%02lu\n", load1 / 100, load1 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_5:  %lu.%02lu\n", load5 / 100, load5 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_15:  %lu.%02lu\n", load15 / 100, load15 % 100);
-/*
+
     tz = thermal_zone_get_zone_by_name("x86_pkg_temp");
     if (thermal_zone_get_temp(tz, &temp) == 0) {
          cpu_temp = temp / 1000;          
@@ -120,7 +120,7 @@ static int sys_monitor_show(struct seq_file *m, void *v)
          }
            
     } 
-    */
+    
     if (!IS_ERR(tz)) {
         printk(KERN_WARNING "ACPI thermal zone not found.\n");                
     }
