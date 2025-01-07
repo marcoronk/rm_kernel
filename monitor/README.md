@@ -1,4 +1,4 @@
-# AESD Char Driver
+# System Resource Monitor
 
-Template source code for the AESD char driver used with assignments 8 and later
+Kernel module to monitor linux system resource
 
