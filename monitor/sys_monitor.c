@@ -172,7 +172,16 @@ static int sys_monitor_show(struct seq_file *m, void *v)
             seq_printf(m, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             sprintf(mess, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             send_netlink_message(mess);
+<<<<<<< HEAD
         }
+=======
+         }
+           
+    } 
+    
+    if (!IS_ERR(tz)) {
+        printk(KERN_WARNING "ACPI thermal zone not found.\n");                
+>>>>>>> 0986ffdc0cb46f6de9ca9b142cb97799f2660c54
     }
 
     seq_printf(m, "TOTAL_RAM: %lu\n", total_mem);
@@ -272,5 +281,9 @@ module_init(sys_monitor_init);
 module_exit(sys_monitor_exit);
 
 MODULE_LICENSE("GPL");
+<<<<<<< HEAD
 MODULE_AUTHOR("Marco Ronchini");
 MODULE_DESCRIPTION("System Resource Monitor");
+=======
+MODULE_DESCRIPTION("System Resource Monitor");
+>>>>>>> 0986ffdc0cb46f6de9ca9b142cb97799f2660c54
