@@ -20,21 +20,16 @@
 #define NETLINK_USER 31
 
 #define PROC_NAME "sys_monitor"
-
-// #define LIMIT_CPU_TEMP 30
-// #define LIMIT_MEMORY 10240000
+#define SYSFS_DIRNAME "sys_monitor"
 
 struct sock *nl_sk = NULL;
 pid_t pid = 0;
 
-#define SYSFS_DIRNAME "sys_monitor"
 
 // threshold begin
 static int cpu_temp_threshold = 40;
 static int ram_usage_threshold = 1024000;
-// static int cpu_load_threshold = 90;
 
-// Attributi SysFS
 
 static ssize_t params_show(struct kobject *kobj, struct kobj_attribute *attr, char *buf)
 {
@@ -45,24 +40,18 @@ static ssize_t params_show(struct kobject *kobj, struct kobj_attribute *attr, ch
 static ssize_t params_store(struct kobject *kobj, struct kobj_attribute *attr, const char *buf, size_t count)
 {
     int temp, ram, load;
-    printk(KERN_INFO "params_store\n");
     if (sscanf(buf, "cpu_temp=%d\nram_usage=%d\n", &temp, &ram) != 2)
     {
-        printk(KERN_INFO "params_store1\n");
         return -EINVAL;
     }
 
-    // Valida i nuovi valori
     if (temp < 0 || ram < 0)
     {
-        printk(KERN_INFO "params_store2\n");
         return -EINVAL;
     }
-    printk(KERN_INFO "params_store3\n");
 
     cpu_temp_threshold = temp;
     ram_usage_threshold = ram;
-    printk(KERN_INFO "params_store4\n");
 
     printk(KERN_INFO "Parameters updated: cpu_temp=%d, ram_usage=%d", cpu_temp_threshold, ram_usage_threshold);
 
@@ -172,17 +161,9 @@ static int sys_monitor_show(struct seq_file *m, void *v)
             seq_printf(m, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             sprintf(mess, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             send_netlink_message(mess);
-<<<<<<< HEAD
-        }
-=======
-         }
-           
+        }                 
     } 
-    
-    if (!IS_ERR(tz)) {
-        printk(KERN_WARNING "ACPI thermal zone not found.\n");                
->>>>>>> 0986ffdc0cb46f6de9ca9b142cb97799f2660c54
-    }
+
 
     seq_printf(m, "TOTAL_RAM: %lu\n", total_mem);
     seq_printf(m, "FREE_RAM: %lu\n", free_mem);
@@ -281,9 +262,5 @@ module_init(sys_monitor_init);
 module_exit(sys_monitor_exit);
 
 MODULE_LICENSE("GPL");
-<<<<<<< HEAD
 MODULE_AUTHOR("Marco Ronchini");
 MODULE_DESCRIPTION("System Resource Monitor");
-=======
-MODULE_DESCRIPTION("System Resource Monitor");
->>>>>>> 0986ffdc0cb46f6de9ca9b142cb97799f2660c54
