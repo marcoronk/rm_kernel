@@ -150,19 +150,35 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     seq_printf(m, "CPU_LOAD_AVERAGE_5:  %lu.%02lu\n", load5 / 100, load5 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_15:  %lu.%02lu\n", load15 / 100, load15 % 100);
 
+printk(KERN_INFO "tz1");
     tz = thermal_zone_get_zone_by_name("x86_pkg_temp");
-    if (tz != NULL)
+    printk(KERN_INFO "tz2");
+
+    if (tz != NULL) {
+        printk(KERN_INFO "tz3");
+
     if (thermal_zone_get_temp(tz, &temp) == 0)
     {
-        cpu_temp = temp / 1000;
-        seq_printf(m, "CPU_TEMPERATURE:  %d\n", cpu_temp);
-        if (cpu_temp > cpu_temp_threshold)
-        {
+        printk(KERN_INFO "tz4");
+
+        if (temp != NULL) {
+            printk(KERN_INFO "tz5");
+
+         cpu_temp = temp / 1000;
+         seq_printf(m, "CPU_TEMPERATURE:  %d\n", cpu_temp);
+         printk(KERN_INFO "tz6");
+
+         if (cpu_temp > cpu_temp_threshold)
+         {
+            printk(KERN_INFO "tz7");
+
             seq_printf(m, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             sprintf(mess, "ALERT: Cpu temperature is %d° (limit is %d°)\n", cpu_temp,cpu_temp_threshold);
             send_netlink_message(mess);
-        }                 
+         }                 
+        }
     } 
+    }
 
 
     seq_printf(m, "TOTAL_RAM: %lu\n", total_mem);
