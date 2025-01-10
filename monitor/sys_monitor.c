@@ -27,7 +27,7 @@ pid_t pid = 0;
 
 
 // threshold begin
-static int cpu_temp_threshold = 40;
+static int cpu_temp_threshold = 0;
 static int ram_usage_threshold = 1024000;
 
 
@@ -149,7 +149,9 @@ static int sys_monitor_show(struct seq_file *m, void *v)
     seq_printf(m, "CPU_LOAD_AVERAGE_1:  %lu.%02lu\n", load1 / 100, load1 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_5:  %lu.%02lu\n", load5 / 100, load5 % 100);
     seq_printf(m, "CPU_LOAD_AVERAGE_15:  %lu.%02lu\n", load15 / 100, load15 % 100);
-
+    cpu_temp = 0;
+    
+    if (cpu_temp_threshold != 0) {
     tz = thermal_zone_get_zone_by_name("x86_pkg_temp");
 
     if (tz != NULL) {
@@ -167,8 +169,8 @@ static int sys_monitor_show(struct seq_file *m, void *v)
         }
     } 
     }
-
-
+    }
+    seq_printf(m, "CPU_TEMPERATURE:  %d\n", cpu_temp);
     seq_printf(m, "TOTAL_RAM: %lu\n", total_mem);
     seq_printf(m, "FREE_RAM: %lu\n", free_mem);
     if (free_mem < ram_usage_threshold)
